@@ -15,7 +15,7 @@ test.beforeEach('before test', async ({ page }) => {
 })
 
 test('Inventory loads after login', async ({ page, loginPage }) => {
-    await expect(page.locator('.inventory_item')).toBeVisible();
+    await expect(page.locator('.inventory_item').first()).toBeVisible();
 });
 
 test('Verify title', async ({ page, loginPage }) => {

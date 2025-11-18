@@ -20,7 +20,7 @@ test.beforeEach('steup', async ({ page, loginPage }) => {
 
 })
 
-test.only('e2e test', async ({ page, loginPage }) => {
+test('e2e test', async ({ page, loginPage }) => {
     //product page
     await productPage.selectProductAddToCart(product1);
     await productPage.selectProductAddToCart(product2);
