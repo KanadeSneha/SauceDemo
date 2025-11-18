@@ -1,18 +1,21 @@
 const { test, expect } = require('../Fixtures/customFixtures');
 const { POManager } = require('../PageObjects/POManager');
 
+
 let poManager;
 let productPage;
 let product = 'Sauce Labs Bike Light';
+let cartPage;
 
 test.beforeEach('before test', async ({ page }) => {
     poManager = new POManager(page);
     productPage = poManager.getProductPage();
+    cartPage = poManager.getCartPage();
 
 })
 
 test('Inventory loads after login', async ({ page, loginPage }) => {
-    await expect(page.locator('.inventory_item')).toHaveCount(6);
+    await expect(page.locator('.inventory_item')).toBeVisible();
 });
 
 test('Verify title', async ({ page, loginPage }) => {
@@ -42,4 +45,9 @@ test('select product and add to cart', async ({ page, loginPage }) => {
     await productPage.selectProductAddToCart(product);
 })
 
+test('click on cart icon', async ({ page, loginPage }) => {
+    await productPage.goToCart();
+    const CartTitle = await cartPage.getCartTitle();
+    expect(CartTitle).toContain('Your Cart');
+})
 

@@ -1,5 +1,7 @@
 // const {POManager} = require('../PageObjects/POManager');
 
+const { expect } = require("@playwright/test");
+
 class ProductsPage {
 
     constructor(page) {
@@ -9,6 +11,7 @@ class ProductsPage {
         this.allPrices = page.locator('.inventory_item_price');
         this.inventoryItems = page.locator('.inventory_item');
         this.item = page.locator('.inventory_item_name');
+        this.cartIcon = page.locator('[data-test="shopping-cart-link"]');
 
     }
 
@@ -17,9 +20,9 @@ class ProductsPage {
 
     }
 
-async getPageTitle() {
-    return await this.page.title();
-}
+    async getPageTitle() {
+        return await this.page.title();
+    }
 
     async sortBy(option) {
         await this.sortDropdown.selectOption(option);
@@ -32,13 +35,16 @@ async getPageTitle() {
     }
 
     async selectProductAddToCart(product) {
-        const product1 = this.page.locator('.inventory_item').filter({
+        const productreceived = this.page.locator('.inventory_item').filter({
             has: this.page.locator('.inventory_item_name', { hasText: product })
         });
-
-        await product1.locator('button').click();
+        await productreceived.locator('button').click();
     }
 
+    async goToCart(){
+       await this.cartIcon.click();
+        
+    }
 
 }
 module.exports = { ProductsPage };
