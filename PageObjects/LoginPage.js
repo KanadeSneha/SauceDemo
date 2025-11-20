@@ -13,6 +13,10 @@ class LoginPage {
     async getError(){
         return await this.error.textContent();
     }
+
+     async getErrorMessage() {
+    return await this.error.textContent();
+  }
     async navigate(){
         await this.page.goto('https://www.saucedemo.com/');
     }
